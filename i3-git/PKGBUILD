@@ -1,0 +1,43 @@
+# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
+
+pkgname=i3-git
+pkgver=20090313
+pkgrel=1
+pkgdesc="An improved dynamic tiling window manager"
+arch=('i686' 'x86_64')
+url="http://i3.zekjur.net/"
+license=('BSD')
+depends=('xcb-proto' 'libxcb' 'xcb-util' 'dmenu')
+makedepends=('git' 'asciidoc')
+options=('docs')
+install=
+source=()
+md5sums=() 
+
+_gitroot="git://code.stapelberg.de/i3"
+_gitname="i3"
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [ -d $_gitname ] ; then
+    cd $_gitname && git pull origin
+    msg "The local files are updated."
+  else
+    git clone $_gitroot
+  fi
+
+  msg "GIT checkout done or server timeout"
+  msg "Starting make..."
+
+  rm -rf "$srcdir/$_gitname-build"
+  cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname-build"
+
+  make || return 1
+  make DESTDIR="$pkgdir/" install
+}
+
+# vim:set ts=2 sw=2 et:
+
