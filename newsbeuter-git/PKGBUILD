@@ -1,14 +1,14 @@
 # Contributor: Thorsten Toepper <atsutane@freethoughts.de>
 
 pkgname=newsbeuter-git
-pkgver=20090224
-pkgrel=4
+pkgver=20090314
+pkgrel=5
 pkgdesc="A RSS feed reader for the text console with special Podcast support."
 url="http://www.newsbeuter.org"
 arch=('i686' 'x86_64')
 license=('custom:MIT')
 depends=('ruby' 'sqlite3' 'curl' 'libxml2')
-makedepends=('git' 'swig' 'stfl' 'cococpp' 'asciidoc')
+makedepends=('git' 'swig' 'stfl' 'cococpp' 'asciidoc' 'docbook-xsl')
 options=('docs' '!libtool')
 conflicts=('newsbeuter')
 replaces=()
@@ -45,7 +45,7 @@ build() {
   ./config.sh || return 1
   sed -i 's+/usr/local+/usr+' Makefile || return 1
   make || return 1
-  make doc
+  make doc || return 1
   make DESTDIR=${pkgdir} install || return 1
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
