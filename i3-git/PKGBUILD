@@ -2,13 +2,13 @@
 
 pkgname=i3-git
 pkgver=20090314
-pkgrel=2
+pkgrel=3
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
 depends=('xcb-proto' 'libxcb' 'xcb-util' 'dmenu')
-makedepends=('git' 'asciidoc')
+makedepends=('git' 'asciidoc' 'docbook-xsl')
 options=('docs')
 install=
 source=()
