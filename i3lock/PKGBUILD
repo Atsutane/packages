@@ -24,7 +24,10 @@ build() {
   sed -i 's+/usr/X11R6+/usr+' config.mk || return 1
 
   make || return 1
-  make DESTDIR="$pkgdir/" clean install 
+  make DESTDIR="$pkgdir/" clean install
+  
+  install -Dm644 LICENSE \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
 }
 
 # vim:set ts=2 sw=2 et:

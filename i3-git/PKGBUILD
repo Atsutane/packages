@@ -37,6 +37,9 @@ build() {
 
   make || return 1
   make DESTDIR="$pkgdir/" install
+  
+  install -Dm644 LICENSE \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
 }
 
 # vim:set ts=2 sw=2 et:
