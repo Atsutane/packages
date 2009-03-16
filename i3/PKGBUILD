@@ -14,7 +14,7 @@ conflicts=('i3-git')
 options=('docs')
 install=
 source=(http://i3.zekjur.net/downloads/$pkgname-$pkgver.tar.bz2)
-md5sums=()
+md5sums=('8fb5254ac07e21c0f2b118d7b02c1114')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
