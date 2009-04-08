@@ -8,8 +8,10 @@ arch=('i686' 'x86_64')
 url="http://www.ssw.uni-linz.ac.at/Research/Projects/Coco/#CPP"
 license=('GPL')
 makedepends=('unzip')
-source=("http://www.ssw.uni-linz.ac.at/Research/Projects/Coco/CPP/CocoSourcesCPP.zip")
-md5sums=('e19f71381d5cd2b5325dda33c8dfbb27')
+source=("http://www.ssw.uni-linz.ac.at/Research/Projects/Coco/CPP/CocoSourcesCPP.zip"
+        "http://www.ssw.uni-linz.ac.at/Research/Projects/Coco/Doc/license.txt")
+md5sums=('e19f71381d5cd2b5325dda33c8dfbb27'
+         '70ff85f9908c38e9542a0bae936e36f6')
 noextract=("CocoSourcesCPP.zip")
 build() {
   cd "$srcdir"
@@ -19,8 +21,9 @@ build() {
   chmod +x build.sh
   ./build.sh --help ||return 1
 
-  mkdir -p "$pkgdir/usr/bin"
   install -D -m755 ${srcdir}/${pkgname}/Coco $pkgdir/usr/bin/cococpp
+  install -D -m644 ${srcdir}/license.txt \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
 }
 
 # vim:set ts=2 sw=2 et:
