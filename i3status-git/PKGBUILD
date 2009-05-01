@@ -1,0 +1,53 @@
+# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
+
+pkgname=i3status-git
+pkgver=20090501
+pkgrel=1
+pkgdesc="Generates status bar to use with dzen2 or wmii"
+arch=('i686' 'x86_64')
+url="http://i3.zekjur.net/"
+license=('BSD')
+groups=()
+depends=()
+# currently dzen2-svn is listed as there's no stable release
+# yet that comes with -dock option
+optdepends=('dzen2-svn')
+makedepends=('git' 'pkgconfig')
+options=('docs')
+provides=('i3status')
+install=
+source=()
+md5sums=() 
+
+_gitroot="git://code.stapelberg.de/i3status"
+_gitname="i3status"
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [ -d $_gitname ] ; then
+    cd $_gitname && git pull origin
+    msg "The local files are updated."
+  else
+    git clone $_gitroot
+  fi
+
+  msg "GIT checkout done or server timeout"
+  msg "Starting make..."
+
+  rm -rf "$srcdir/$_gitname-build"
+  cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname-build"
+
+  make || return 1
+  make DESTDIR="$pkgdir/" install
+
+  install -Dm644 i3status.1 \
+    ${pkgdir}/usr/share/man/man1/i3status.1 || return 1
+  install -Dm644 debian/copyright \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
+}
+
+# vim:set ts=2 sw=2 et:
+
