@@ -1,0 +1,26 @@
+# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
+
+pkgname=i3status
+pkgver=1.0
+pkgrel=1
+pkgdesc="Generates status bar to use with dzen2 or wmii"
+arch=('i686' 'x86_64')
+url="http://i3.zekjur.net/i3status/"
+license=('BSD')
+depends=()
+makedepends=()
+conflicts=('i3status-git')
+options=('docs')
+install=
+source=(http://i3.zekjur.net/i3status/$pkgname-$pkgver.tar.bz2)
+md5sums=('29e4e45f4aa900844db5065f9e49d2cd')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  
+  make || return 1
+  make DESTDIR="$pkgdir/" clean install
+}
+
+# vim:set ts=2 sw=2 et:
+
