@@ -1,30 +1,34 @@
 # Contributor: Thorsten Toepper <atsutane@freethoughts.de>
 
 pkgname=i3
-pkgver=3.a
+pkgver=3.a.bf1
+#The original version is 3.a-bf1 but there
+#are no dashs allowed in the $pkgver
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
-depends=('xcb-proto' 'libxcb' 'xcb-util' 'dmenu')
+depends=('libx11' 'xcb-util')
 makedepends=('asciidoc' 'docbook-xsl')
+optdepends=('dmenu')
 provides=()
 conflicts=('i3-git')
 options=('docs')
-install=
-source=(http://i3.zekjur.net/downloads/$pkgname-$pkgver.tar.bz2)
-md5sums=('8fb5254ac07e21c0f2b118d7b02c1114')
+install=('i3.install')
+source=(http://i3.zekjur.net/downloads/$pkgname-3.a-bf1.tar.bz2
+        'i3.install')
+md5sums=('8261cef1c8e7eb2221db5468b31bcf1d'
+         '5359f571ccd24ae3ecfab6dadfc92490')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  #cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-3.a-bf1"
   
   make || return 1
   make -C man || return 1
   make DESTDIR="$pkgdir/" install
   
-  mkdir -p ${pkgdir}/usr/share/man/man1
-
   install -Dm644 man/i3.1 ${pkgdir}/usr/share/man/man1/i3.1 || return 1
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
