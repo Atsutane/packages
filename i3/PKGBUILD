@@ -1,10 +1,10 @@
 # Contributor: Thorsten Toepper <atsutane@freethoughts.de>
 
 pkgname=i3
-pkgver=3.a.bf1
+pkgver=3.a
 #The original version is 3.a-bf1 but there
-#are no dashs allowed in the $pkgver
-pkgrel=1
+#are no dashs allowed in $pkgver
+pkgrel=bf2
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
@@ -16,14 +16,13 @@ provides=()
 conflicts=('i3-git')
 options=('docs')
 install=('i3.install')
-source=(http://i3.zekjur.net/downloads/$pkgname-3.a-bf1.tar.bz2
+source=(http://i3.zekjur.net/downloads/$pkgname-$pkgver-$pkgrel.tar.bz2
         'i3.install')
-md5sums=('8261cef1c8e7eb2221db5468b31bcf1d'
+md5sums=('de67d1353b83cf38064d761879a1e224'
          '5359f571ccd24ae3ecfab6dadfc92490')
 
 build() {
-  #cd "$srcdir/$pkgname-$pkgver"
-  cd "$srcdir/$pkgname-3.a-bf1"
+  cd "$srcdir/$pkgname-$pkgver-$pkgrel"
   
   make || return 1
   make -C man || return 1
