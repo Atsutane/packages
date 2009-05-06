@@ -1,12 +1,14 @@
 # Contributor: Thorsten Toepper <atsutane@freethoughts.de>
 
 pkgname=i3-git
-pkgver=20090428
+pkgver=20090506
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
+provides=('i3')
+replaces=('i3')
 depends=('xcb-util' 'libx11')
 makedepends=('git' 'asciidoc' 'docbook-xsl' 'pkgconfig')
 optdepends=('dmenu')
@@ -27,6 +29,10 @@ build() {
     msg "The local files are updated."
   else
     git clone $_gitroot
+    
+    cd $_gitname
+    git branch -f next origin/next
+    git checkout next
   fi
 
   msg "GIT checkout done or server timeout"
