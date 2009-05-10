@@ -1,7 +1,7 @@
 # Contributor: Thorsten Toepper <atsutane@freethoughts.de>
 
 pkgname=i3lock
-pkgver=0.9
+pkgver=1.0
 pkgrel=1
 pkgdesc="A slightly improved version of slock"
 arch=('i686' 'x86_64')
@@ -16,7 +16,7 @@ backup=()
 options=()
 install=
 source=(http://i3.zekjur.net/i3lock/$pkgname-$pkgver.tar.gz)
-md5sums=('a966633ba348ca348ee31ccc072d9bc4')
+md5sums=('27db4766271d0c7ea3bbb14ac7b9932c')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
