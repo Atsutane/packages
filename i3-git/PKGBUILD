@@ -1,21 +1,18 @@
-# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
+# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3-git
-pkgver=20090506
+pkgver=20090517
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
 provides=('i3')
-replaces=('i3')
+conflicts=('i3')
 depends=('xcb-util' 'libx11')
 makedepends=('git' 'asciidoc' 'docbook-xsl' 'pkgconfig')
-optdepends=('dmenu')
+optdepends=('dmenu' 'i3lock' 'i3status')
 options=('docs' '!strip')
-install=
-source=()
-md5sums=() 
 
 _gitroot="git://code.stapelberg.de/i3"
 _gitname="i3"
@@ -46,7 +43,8 @@ build() {
   make -C man || return 1
   make DESTDIR="$pkgdir/" install
 
-  install -Dm644 man/i3.1 ${pkgdir}/usr/share/man/man1/i3.1 || return 1
+  install -Dm644 man/i3.1 \
+    ${pkgdir}/usr/share/man/man1/i3.1 || return 1
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
 }
