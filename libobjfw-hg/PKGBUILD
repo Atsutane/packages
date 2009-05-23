@@ -9,6 +9,7 @@ arch=('i686' 'x86_64')
 url="https://webkeks.org/hg/libobjfw"
 license=('custom:QPL')
 depends=('gcc-libs' 'bash')
+makedepends=('mercurial')
 
 _hgroot=https://webkeks.org/hg
 _hgrepo=libobjfw
