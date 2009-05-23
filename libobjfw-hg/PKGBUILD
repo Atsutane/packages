@@ -1,0 +1,43 @@
+# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
+# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
+
+pkgname=libobjfw-hg
+pkgver=336
+pkgrel=1
+pkgdesc="A portable framework for the Objective C language."
+arch=('i686' 'x86_64')
+url="https://webkeks.org/hg/libobjfw"
+license=('custom:QPL')
+depends=('gcc-libs' 'bash')
+
+_hgroot=https://webkeks.org/hg
+_hgrepo=libobjfw
+
+build() {
+	cd "$srcdir"
+
+	if [ -d "$_hgrepo" ]; then
+		cd "$srcdir/$_hgrepo"
+    hg pull -u
+	else
+		hg clone "$_hgroot/$_hgrepo" || return 1
+	fi
+
+	msg "Mercurial checkout done or server timeout"
+	msg "Starting make..."
+
+  rm -rf "$srcdir/$_hgrepo-build"
+	cp -r "$srcdir/$_hgrepo" "$srcdir/$_hgrepo-build"
+	cd "$srcdir/$_hgrepo-build"
+	
+  ./autogen.sh
+	./configure --prefix=/usr 
+	make || return 1
+	make DESTDIR=${pkgdir} install
+
+  install -Dm644 LICENSE \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
+}
+
+# vim:set ts=2 sw=2 et:
+
