@@ -1,26 +1,25 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=structorizer
-pkgver=3.12
-pkgrel=2
+pkgver=3.13
+_pkgver=3_13
+pkgrel=1
 pkgdesc="Structorizer is a little tool which you can use to create Nassi-Schneiderman Diagrams (NSD)"
 arch=('i686' 'x86_64')
 url="http://structorizer.fisch.lu/"
 license=('GPL')
 depends=('java-runtime')
 install=("structorizer.install")
-source=("http://www.fisch.lu/Php/download.php?file=structorizer_3_12.zip"
-        "structorizer.install")
+source=("http://www.fisch.lu/Php/download.php?file=structorizer_${_pkgver}.zip")
 noextract=()
-md5sums=('6b08426e2bbadef8bb17e01afdde992c'
-         '85a0d3c7dfea3b232a810c219ed8d05a')
+md5sums=('57727d87c1cc60b6b4a657f465e1e86e')
 
 build() {
   echo -n '#!/bin/sh
-java -jar /usr/share/java/structorizer/Structorizer.jar' >> $srcdir/structorizer
+java -jar /usr/share/java/structorizer/Structorizer.jar' > $srcdir/structorizer
 
   install -Dm755 \
-   $srcdir/dist/Structorizer.app/Contents/Resources/Java/Structorizer.jar \
+   $srcdir/Structorizer.app/Contents/Resources/Java/Structorizer.jar \
    $pkgdir/usr/share/java/structorizer/Structorizer.jar || return 1
   install -Dm755 \
    $srcdir/structorizer \
