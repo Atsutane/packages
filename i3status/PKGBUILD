@@ -1,25 +1,27 @@
-# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
+# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
+# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3status
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="Generates status bar to use with dzen2 or wmii"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3status/"
 license=('BSD')
-depends=()
-makedepends=()
-conflicts=('i3status-git')
+depends=('glibc')
 options=('docs')
-install=
-source=(http://i3.zekjur.net/i3status/$pkgname-$pkgver.tar.bz2)
-md5sums=('29e4e45f4aa900844db5065f9e49d2cd')
+source=(http://i3.zekjur.net/i3status/$pkgname-$pkgver.tar.bz2
+        'LICENSE')
+md5sums=('d4c997d845681a91f4031156dd7eb285'
+         '925ce69cf4db2b73e206794faec0336c')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   
   make || return 1
-  make DESTDIR="$pkgdir/" clean install
+  make DESTDIR="$pkgdir" clean install
+  install -Dm644 $srcdir/LICENSE \
+      $pkgdir/usr/share/licenses/$pkgname/LICENSE || return 1
 }
 
 # vim:set ts=2 sw=2 et:
