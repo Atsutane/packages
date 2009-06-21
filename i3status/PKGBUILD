@@ -2,7 +2,7 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3status
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc="Generates status bar to use with dzen2 or wmii"
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 options=('docs')
 source=(http://i3.zekjur.net/i3status/$pkgname-$pkgver.tar.bz2
         'LICENSE')
-md5sums=('d4c997d845681a91f4031156dd7eb285'
+md5sums=('912fc395c70991d15ab009f90d430076'
          '925ce69cf4db2b73e206794faec0336c')
 
 build() {
