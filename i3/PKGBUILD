@@ -1,19 +1,20 @@
+# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3
-pkgver=3.a_bf2
-_pkgver=3.a-bf2
+pkgver=3.b
+_pkgver=3.b
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
-depends=('libx11' 'xcb-util')
+depends=('libx11' 'xcb-util' 'libev')
 makedepends=('asciidoc' 'docbook-xsl')
 optdepends=('dmenu' 'i3lock' 'i3status')
 options=('docs' '!strip')
 source=(http://i3.zekjur.net/downloads/$pkgname-$_pkgver.tar.bz2)
-md5sums=('de67d1353b83cf38064d761879a1e224')
+md5sums=('997a46902d7a12bd5a247d3c436cc8c0')
 
 build() {
   cd "$srcdir/$pkgname-$_pkgver"
