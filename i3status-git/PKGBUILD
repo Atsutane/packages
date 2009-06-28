@@ -1,23 +1,19 @@
-# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
+# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
+# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3status-git
-pkgver=20090501
+pkgver=20090628
 pkgrel=1
 pkgdesc="Generates status bar to use with dzen2 or wmii"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3status/"
 license=('BSD')
-groups=()
-depends=()
-# currently dzen2-svn is listed as there's no stable release
-# yet that comes with -dock option
-optdepends=('dzen2-svn')
+depends=('glibc')
+optdepends=("dzen2-svn: As statusbar, dzen2 stable doesn't support -dock yet.")
 makedepends=('git' 'pkgconfig')
 options=('docs')
+conflicts=('i3status')
 provides=('i3status')
-install=
-source=()
-md5sums=() 
 
 _gitroot="git://code.stapelberg.de/i3status"
 _gitname="i3status"
@@ -40,8 +36,11 @@ build() {
   cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname-build"
 
+  # Comment this out if you want to use i3status with wmii
+  echo "CFLAGS+=-DDZEN" >> Makefile
+
   make || return 1
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR="$pkgdir" install
 
   install -Dm644 i3status.1 \
     ${pkgdir}/usr/share/man/man1/i3status.1 || return 1
