@@ -18,6 +18,9 @@ md5sums=('912fc395c70991d15ab009f90d430076'
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   
+  # Comment this out if you want to use i3status with wmii
+  echo "CFLAGS+=-DDZEN" >> Makefile
+
   make || return 1
   make DESTDIR="$pkgdir" clean install
   install -Dm644 $srcdir/LICENSE \
