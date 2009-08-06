@@ -2,7 +2,7 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3status-git
-pkgver=20090628
+pkgver=20090806
 pkgrel=1
 pkgdesc="Generates status bar to use with dzen2 or wmii"
 arch=('i686' 'x86_64')
@@ -40,7 +40,7 @@ build() {
   echo "CFLAGS+=-DDZEN" >> Makefile
 
   make || return 1
-  make DESTDIR="$pkgdir" install
+  make DESTDIR="$pkgdir" install || return 1
 
   install -Dm644 i3status.1 \
     ${pkgdir}/usr/share/man/man1/i3status.1 || return 1
