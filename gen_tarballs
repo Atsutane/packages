@@ -10,17 +10,16 @@ fi
 
 if [ $# -eq 0 ]; then
 	PACKAGE_LIST=$(find . -maxdepth 1 -type d \! -name .)
+	rm ${TARB_ARCHIVE}/*
 elif [ $# -eq 1 ]; then
 	PACKAGE_LIST=${1}
+	rm ${TARB_ARCHIVE}/${PACKAGE_LIST}*
 fi
 
 for ITEM in $(echo $PACKAGE_LIST); do
 	if [ -d $ITEM ]; then
-		#rm ${TARB_ARCHIVE}/${ITEM}*
 		cd ${ITEM}
-		pwd
 		if [ -f "PKGBUILD" ]; then
-			echo "PKGBUILD found."
 			makepkg --source || return 1
 			mv *.src.tar.gz ${TARB_ARCHIVE}
 		fi
