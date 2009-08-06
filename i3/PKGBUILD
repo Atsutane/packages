@@ -21,7 +21,7 @@ build() {
   
   make || return 1
   make -C man || return 1
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR="$pkgdir/" clean install || return 1
   
   install -Dm644 man/i3.1 \
     ${pkgdir}/usr/share/man/man1/i3.1 || return 1
