@@ -22,7 +22,7 @@ build() {
   echo "CFLAGS+=-DDZEN" >> Makefile
 
   make || return 1
-  make DESTDIR="$pkgdir" clean install
+  make DESTDIR="$pkgdir" clean install || return 1
   install -Dm644 $srcdir/LICENSE \
       $pkgdir/usr/share/licenses/$pkgname/LICENSE || return 1
 }
