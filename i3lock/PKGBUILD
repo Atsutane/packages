@@ -1,20 +1,14 @@
-# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
+# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3lock
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A slightly improved version of slock"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3lock/"
 license=('MIT')
-depends=()
-makedepends=()
-provides=()
-conflicts=('i3lock-git')
-replaces=()
-backup=()
-options=()
-install=
+depends=('libxext' 'pam')
+options=('docs')
 source=(http://i3.zekjur.net/i3lock/$pkgname-$pkgver.tar.gz)
 md5sums=('27db4766271d0c7ea3bbb14ac7b9932c')
 
@@ -24,7 +18,7 @@ build() {
   sed -i 's+/usr/X11R6+/usr+' config.mk || return 1
 
   make || return 1
-  make DESTDIR="$pkgdir/" clean install
+  make DESTDIR="$pkgdir" clean install || return 1
   
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
