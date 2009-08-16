@@ -2,7 +2,7 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=libobjfw-hg
-pkgver=431
+pkgver=436
 pkgrel=1
 pkgdesc="A portable framework for the Objective C language."
 arch=('i686' 'x86_64')
