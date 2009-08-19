@@ -2,8 +2,8 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3
-pkgver=3.b
-_pkgver=3.b
+pkgver=3.c
+_pkgver=3.c
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
@@ -11,10 +11,12 @@ url="http://i3.zekjur.net/"
 license=('BSD')
 depends=('libx11' 'xcb-util' 'libev')
 makedepends=('asciidoc' 'docbook-xsl')
-optdepends=('dmenu' 'i3lock' 'i3status')
+optdepends=('dmenu: As menu.'
+            'i3lock: For locking your screen.'
+            'i3status: To display systeminformation with a bar. (e.g. dzen2)')
 options=('docs' '!strip')
 source=(http://i3.zekjur.net/downloads/$pkgname-$_pkgver.tar.bz2)
-md5sums=('997a46902d7a12bd5a247d3c436cc8c0')
+md5sums=('8e3a4c3784beee5c5034c7570bcff1c8')
 
 build() {
   cd "$srcdir/$pkgname-$_pkgver"
@@ -23,7 +25,7 @@ build() {
   make -C man || return 1
   make DESTDIR="$pkgdir/" clean install || return 1
   
-  install -Dm644 man/i3.1 \
+  install -Dm644 man/i3.man \
     ${pkgdir}/usr/share/man/man1/i3.1 || return 1
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
