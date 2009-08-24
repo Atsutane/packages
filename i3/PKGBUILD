@@ -4,7 +4,7 @@
 pkgname=i3
 pkgver=3.c
 _pkgver=3.c
-pkgrel=1
+pkgrel=2
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
@@ -23,12 +23,18 @@ build() {
   
   make || return 1
   make -C man || return 1
-  make DESTDIR="$pkgdir/" clean install || return 1
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir/" install || return 1
   
   install -Dm644 man/i3.man \
     ${pkgdir}/usr/share/man/man1/i3.1 || return 1
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
+
+  make clean
 }
 
 # vim:set ts=2 sw=2 et:
