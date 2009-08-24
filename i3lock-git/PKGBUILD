@@ -2,7 +2,7 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3lock-git
-pkgver=20090806
+pkgver=20090824
 pkgrel=1
 pkgdesc="Slightly improved version of slock"
 arch=('i686' 'x86_64')
@@ -37,11 +37,16 @@ build() {
   sed -i 's+/usr/X11R6+/usr+' config.mk || return 1
 
   make || return 1
-  make DESTDIR="$pkgdir" clean install || return 1
+}
+
+package() {  
+  cd "$srcdir/$_gitname-build"
+  make DESTDIR="$pkgdir" install || return 1
 
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
 
+  make clean
 }
 
 # vim:set ts=2 sw=2 et:
