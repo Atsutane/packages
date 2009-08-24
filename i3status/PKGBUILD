@@ -3,7 +3,7 @@
 
 pkgname=i3status
 pkgver=1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Generates status bar to use with dzen2 or wmii"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3status/"
@@ -22,9 +22,16 @@ build() {
   echo "CFLAGS+=-DDZEN" >> Makefile
 
   make || return 1
-  make DESTDIR="$pkgdir" clean install || return 1
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  
+  make DESTDIR="$pkgdir" install || return 1
   install -Dm644 $srcdir/LICENSE \
       $pkgdir/usr/share/licenses/$pkgname/LICENSE || return 1
+
+  make clean  
 }
 
 # vim:set ts=2 sw=2 et:
