@@ -2,7 +2,7 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3-git
-pkgver=20090824
+pkgver=20090925
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
@@ -11,7 +11,8 @@ license=('BSD')
 provides=('i3')
 conflicts=('i3')
 depends=('xcb-util' 'libx11' 'libev')
-makedepends=('git' 'asciidoc' 'docbook-xsl' 'pkgconfig')
+makedepends=('git' 'asciidoc' 'docbook-xsl' 'pkgconfig'
+             'bison' 'flex')
 optdepends=('dmenu' 'i3lock' 'i3status')
 options=('docs' '!strip')
 
