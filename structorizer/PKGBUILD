@@ -1,29 +1,66 @@
+# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=structorizer
-pkgver=3.13
-_pkgver=3_13
-pkgrel=2
+pkgver=3.16
+_pkgver=3_16
+pkgrel=1
 pkgdesc="Structorizer is a little tool which you can use to create Nassi-Schneiderman Diagrams (NSD)"
 arch=('any')
 url="http://structorizer.fisch.lu/"
-license=('GPL')
-depends=('java-runtime')
+license=('custom')
+depends=('java-runtime' 'sh')
 install=("structorizer.install")
 source=("http://www.fisch.lu/Php/download.php?file=structorizer_${_pkgver}.zip")
-noextract=()
-md5sums=('57727d87c1cc60b6b4a657f465e1e86e')
+md5sums=('a671233892bb01ea72886b6fd4123c27')
 
 build() {
   echo -n '#!/bin/sh
-java -jar /usr/share/java/structorizer/Structorizer.jar' > $srcdir/structorizer
+cd /usr/share/java/structorizer || return 1
+java -jar Structorizer.jar Structorizer'>${srcdir}/structorizer
+}
 
+package() {
+  # Binaries
   install -Dm755 \
-   $srcdir/Structorizer.app/Contents/Resources/Java/Structorizer.jar \
-   $pkgdir/usr/share/java/structorizer/Structorizer.jar || return 1
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/Structorizer.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/Structorizer.jar || return 1
   install -Dm755 \
-   $srcdir/structorizer \
-   $pkgdir/usr/bin/structorizer || return 1
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/AppleJavaExtensions.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/AppleJavaExtensions.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/bsh-2.0b4.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/bsh-2.0b4.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-graphics2d-2.1.1.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-graphics2d-2.1.1.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-graphicsio-2.1.1.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-graphicsio-2.1.1.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-io-2.0.2.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-io-2.0.2.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-swing-2.0.3.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-swing-2.0.3.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-util-2.0.2.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-util-2.0.2.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/freehep.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/swing-layout-1.0.3.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/swing-layout-1.0.3.jar || return 1
+  
+  # Script and license
+  install -Dm755 \
+    ${srcdir}/structorizer \
+    ${pkgdir}/usr/bin/structorizer || return 1
+  install -Dm 644 \
+    ${srcdir}/Structorizer/license.txt \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
 }
 
 # vim:set ts=2 sw=2 et:
+
