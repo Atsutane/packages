@@ -8,8 +8,9 @@ license=('custom:Brother Industries')
 depends=('cups' 'tcsh')
 makedepends=('tar')
 url="http://solutions.brother.com/linux/en_us/index.html"
-source=(http://solutions.brother.com/Library/sol/printer/linux/rpmfiles/cups_wrapper/${_printername}cupswrapper-$pkgver-$pkgrel.i386.deb \
-	http://solutions.brother.com/Library/sol/printer/linux/rpmfiles/lpr_others/${_printername}lpr-$pkgver-$pkgrel.i386.deb)
+source=(http://solutions.brother.com/Library/sol/printer/linux/dlf/${_printername}cupswrapper-$pkgver-$pkgrel.i386.deb \
+http://solutions.brother.com/Library/sol/printer/linux/dlf/${_printername}lpr-$pkgver-$pkgrel.i386.deb)
+optdepends=('Install lib32-libstdc++5 for usage at x86_64 systems.')
 md5sums=('e120a58c97db025affc88b76e255854a'
          'f1b6caa3a4726fd60eb85ea54313c324')
 build() {
