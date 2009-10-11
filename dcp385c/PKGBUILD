@@ -1,3 +1,4 @@
+
 pkgname=dcp385c
 _printername=${pkgname/*-/}
 pkgver=1.1.2
@@ -5,18 +6,25 @@ pkgrel=2
 pkgdesc="CUPS driver for Brother DCP-385 printer"
 arch=('i686' 'x86_64')
 license=('custom:Brother Industries')
-depends=('cups' 'tcsh')
+if [ "$CARCH" = "x86_64" ]; then
+	depends=('cups' 'tcsh' 'lib32-libstdc++5')
+else
+	depends=('cups' 'tcsh')
+fi
 makedepends=('tar')
 url="http://solutions.brother.com/linux/en_us/index.html"
 source=(http://solutions.brother.com/Library/sol/printer/linux/dlf/${_printername}cupswrapper-$pkgver-$pkgrel.i386.deb \
 http://solutions.brother.com/Library/sol/printer/linux/dlf/${_printername}lpr-$pkgver-$pkgrel.i386.deb)
-optdepends=('Install lib32-libstdc++5 for usage at x86_64 systems.')
 md5sums=('e120a58c97db025affc88b76e255854a'
          'f1b6caa3a4726fd60eb85ea54313c324')
+
 build() {
-	cd "$startdir/pkg" || return 1
-	for n in $startdir/src/*.deb; do
-		(ar -x "$n" data.tar.gz && mv data.tar.gz $startdir/src/ && tar -xvvf $startdir/src/data.tar.gz && rm $startdir/src/data.tar.gz) || return 1
+	cd "$pkgdir" || return 1
+	for n in $srcdir/*.deb; do
+		ar -x "$n" data.tar.gz || return 1 
+		mv data.tar.gz $srcdir || return 1
+		tar -xvvf $srcdir/data.tar.gz || return 1
+		rm $srcdir/data.tar.gz || return 1
 	done 
 
 	sed -i 's|/etc/init.d|/etc/rc.d|' $pkgdir/usr/local/Brother/Printer/dcp385c/cupswrapper/cupswrapperdcp385c
