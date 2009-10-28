@@ -2,25 +2,22 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3status
-pkgver=1.2
-pkgrel=2
-pkgdesc="Generates status bar to use with dzen2 or wmii"
+pkgver=2.0
+pkgrel=1
+pkgdesc="Generates status bar to use with dzen2 or xmobar"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3status/"
 license=('BSD')
-depends=('glibc')
+depends=('wireless_tools' 'confuse')
 options=('docs')
 source=(http://i3.zekjur.net/i3status/$pkgname-$pkgver.tar.bz2
         'LICENSE')
-md5sums=('912fc395c70991d15ab009f90d430076'
+md5sums=('0718095874aed604fe58a7de08cde530'
          '925ce69cf4db2b73e206794faec0336c')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   
-  # Comment this out if you want to use i3status with wmii
-  echo "CFLAGS+=-DDZEN" >> Makefile
-
   make || return 1
 }
 
