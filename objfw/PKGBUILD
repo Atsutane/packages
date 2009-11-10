@@ -1,20 +1,21 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
-pkgname=libobjfw-hg
-pkgver=436
+pkgname=objfw-hg
+pkgver=541
 pkgrel=1
 pkgdesc="A portable framework for the Objective C language."
 arch=('i686' 'x86_64')
-url="https://webkeks.org/hg/libobjfw"
+url="https://webkeks.org/hg/objfw"
 license=('custom:QPL')
-provides=('libobjfw')
+provides=('libobjfw' 'libobjfw-hg')
 conflicts=('libobjfw')
-depends=('gcc-libs' 'sh')
+replaces=('libobjfw-hg')
+depends=('gcc-libs' 'sh' 'gcc-objc')
 makedepends=('mercurial')
 
 _hgroot=https://webkeks.org/hg
-_hgrepo=libobjfw
+_hgrepo=objfw
 
 build() {
 	cd "${srcdir}"
