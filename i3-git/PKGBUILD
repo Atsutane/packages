@@ -2,7 +2,7 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3-git
-pkgver=20090925
+pkgver=20091111
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
@@ -53,6 +53,9 @@ package() {
     ${pkgdir}/usr/share/man/man1/i3.1 || return 1
   install -Dm644 man/i3-msg.1 \
     ${pkgdir}/usr/share/man/man1/i3-msg.1 || return 1
+  install -Dm644 man/i3-input.1 \
+    ${pkgdir}/usr/share/man/man1/i3-input.1 || return 1
+
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
   
