@@ -6,13 +6,14 @@ pkgver=541
 pkgrel=1
 pkgdesc="A portable framework for the Objective C language."
 arch=('i686' 'x86_64')
-url="https://webkeks.org/hg/objfw"
+url="https://webkeks.org/objfw"
 license=('custom:QPL')
 provides=('libobjfw' 'libobjfw-hg')
 conflicts=('libobjfw')
 replaces=('libobjfw-hg')
-depends=('gcc-libs' 'sh' 'gcc-objc')
-makedepends=('mercurial')
+depends=('gcc-libs' 'sh')
+makedepends=('mercurial' 'gcc-objc')
+optdepends=('gcc-objc: For active usage of this framework.')a
 
 _hgroot=https://webkeks.org/hg
 _hgrepo=objfw
