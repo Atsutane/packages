@@ -3,7 +3,6 @@
 
 pkgname=i3
 pkgver=3.d
-_pkgver=3.d
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
@@ -15,11 +14,11 @@ optdepends=('dmenu: As menu.'
             'i3lock: For locking your screen.'
             'i3status: To display systeminformation with a bar.')
 options=('docs' '!strip')
-source=(http://i3.zekjur.net/downloads/$pkgname-$_pkgver.tar.bz2)
+source=(http://i3.zekjur.net/downloads/$pkgname-$pkgver.tar.bz2)
 md5sums=('dc648c0bbf711d6691c981f665c7c54c')
 
 build() {
-  cd "$srcdir/$pkgname-$_pkgver"
+  cd "$srcdir/$pkgname-$pkgver"
   
   make || return 1
 }
