@@ -2,12 +2,12 @@
 # Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3lock-git
-pkgver=20090824
+pkgver=20091121
 pkgrel=1
 pkgdesc="Slightly improved version of slock"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3lock/"
-license=('MIT')
+license=('custom:MIT')
 depends=('libxpm' 'pam')
 provides=('i3lock')
 conflicts=('i3lock')
