@@ -1,11 +1,10 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
-# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=structorizer
 pkgver=3.17
 _pkgver=3_17
 pkgrel=1
-pkgdesc="Structorizer is a little tool which you can use to create Nassi-Schneiderman Diagrams (NSD)"
+pkgdesc="A little tool which you can use to create Nassi-Schneiderman Diagrams (NSD)"
 arch=('any')
 url="http://structorizer.fisch.lu/"
 license=('custom')
