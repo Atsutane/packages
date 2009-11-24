@@ -1,13 +1,12 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
-# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3-git
-pkgver=20091121
+pkgver=20091124
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
-license=('custom:BSD')
+license=('BSD')
 provides=('i3')
 conflicts=('i3')
 depends=('xcb-util' 'libx11' 'libev')

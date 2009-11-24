@@ -1,5 +1,4 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
-# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3
 pkgver=3.d
@@ -7,7 +6,7 @@ pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
-license=('custom:BSD')
+license=('BSD')
 depends=('libx11' 'xcb-util' 'libev')
 makedepends=('bison' 'flex')
 optdepends=('dmenu: As menu.'

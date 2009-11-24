@@ -1,5 +1,4 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
-# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3status
 pkgver=2.0
@@ -7,7 +6,7 @@ pkgrel=2
 pkgdesc="Generates status bar to use with dzen2 or xmobar"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3status/"
-license=('custom:BSD')
+license=('BSD')
 depends=('wireless_tools' 'confuse')
 makedepends=('asciidoc')
 options=('docs')

@@ -1,5 +1,4 @@
 # Maintainer: Thorsten Toepper <atsutane@freethoughts.de>
-# Contributor: Thorsten Toepper <atsutane@freethoughts.de>
 
 pkgname=cococpp
 pkgver=20090622
@@ -14,6 +13,7 @@ source=("http://www.ssw.uni-linz.ac.at/Research/Projects/Coco/CPP/CocoSourcesCPP
 md5sums=('6b925d8c96afddff941a16a498adb647'
          '70ff85f9908c38e9542a0bae936e36f6')
 noextract=("CocoSourcesCPP.zip")
+
 build() {
   mv "CocoSourcesCPP.zip" "CocoSourcesCPP-${pkgver}.zip"
   cd "${srcdir}"

@@ -1,8 +1,7 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
-# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=objfw-hg
-pkgver=541
+pkgver=562
 pkgrel=1
 pkgdesc="A portable framework for the Objective C language."
 arch=('i686' 'x86_64')

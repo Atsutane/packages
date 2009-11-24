@@ -1,4 +1,4 @@
-# Contributor: Thorsten Toepper <atsutane at freethoughts dot de>
+# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3lock
 pkgver=1.0
@@ -6,7 +6,7 @@ pkgrel=3
 pkgdesc="A slightly improved version of slock"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3lock/"
-license=('custom:MIT')
+license=('MIT')
 depends=('libxext' 'pam')
 options=('docs')
 source=(http://i3.zekjur.net/i3lock/$pkgname-$pkgver.tar.gz)
