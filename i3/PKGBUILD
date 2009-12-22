@@ -1,7 +1,8 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3
-pkgver=3.d
+pkgver=3.d_bf1
+_pkgver=3.d-bf1
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
@@ -13,17 +14,17 @@ optdepends=('dmenu: As menu.'
             'i3lock: For locking your screen.'
             'i3status: To display systeminformation with a bar.')
 options=('docs' '!strip')
-source=(http://i3.zekjur.net/downloads/$pkgname-$pkgver.tar.bz2)
-md5sums=('dc648c0bbf711d6691c981f665c7c54c')
+source=(http://i3.zekjur.net/downloads/$pkgname-$_pkgver.tar.bz2)
+md5sums=('f2271064640d67c8a618c8c79451da75')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_pkgver"
   
   make || return 1
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_pkgver"
   make DESTDIR="$pkgdir/" install || return 1
   
   install -Dm644 man/i3.man \
