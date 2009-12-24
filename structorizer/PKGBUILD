@@ -1,8 +1,8 @@
-# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
+# Maintainer: Thorsten Töpper <atsutane at freethoughts dot de>
 
 pkgname=structorizer
-pkgver=3.17
-_pkgver=3_17
+pkgver=3.18
+_pkgver=3_18
 pkgrel=1
 pkgdesc="A little tool which you can use to create Nassi-Schneiderman Diagrams (NSD)"
 arch=('any')
@@ -11,7 +11,7 @@ license=('custom')
 depends=('java-runtime' 'sh')
 install=("structorizer.install")
 source=("http://www.fisch.lu/Php/download.php?file=structorizer_${_pkgver}.zip")
-md5sums=('d81ae6cc306856090ff94c062f99dd73')
+md5sums=('ecbc9da9db4da986aa3dec7d5ebd280f')
 
 build() {
   echo -n '#!/bin/sh
@@ -39,6 +39,9 @@ package() {
   install -Dm755 \
     ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-io-2.0.2.jar \
     ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-io-2.0.2.jar || return 1
+  install -Dm755 \
+    ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-graphicsio-svg-2.1.1.jar \
+    ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-graphicsio-svg-2.1.1.jar || return 1
   install -Dm755 \
     ${srcdir}/Structorizer/Structorizer.app/Contents/Resources/Java/lib/freehep-swing-2.0.3.jar \
     ${pkgdir}/usr/share/java/${pkgname}/lib/freehep-swing-2.0.3.jar || return 1
