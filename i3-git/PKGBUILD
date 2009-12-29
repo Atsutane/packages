@@ -1,7 +1,7 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3-git
-pkgver=20091124
+pkgver=20091229
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
@@ -12,7 +12,10 @@ conflicts=('i3')
 depends=('xcb-util' 'libx11' 'libev')
 makedepends=('git' 'asciidoc' 'docbook-xsl' 'pkgconfig'
              'bison' 'flex')
-optdepends=('dmenu' 'i3lock' 'i3status')
+optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
+            'dmenu: As menu.'
+            'i3lock: For locking your screen.'
+            'i3status: To display systeminformation with a bar.')
 options=('docs' '!strip')
 
 _gitroot="git://code.stapelberg.de/i3"

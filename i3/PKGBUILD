@@ -3,14 +3,15 @@
 pkgname=i3
 pkgver=3.d_bf1
 _pkgver=3.d-bf1
-pkgrel=1
+pkgrel=2
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
 depends=('libx11' 'xcb-util' 'libev')
 makedepends=('bison' 'flex')
-optdepends=('dmenu: As menu.'
+optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
+            'dmenu: As menu.'
             'i3lock: For locking your screen.'
             'i3status: To display systeminformation with a bar.')
 options=('docs' '!strip')
