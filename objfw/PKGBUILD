@@ -1,7 +1,7 @@
 # Maintainer: Thorsten Töpper <atsutane at freethoughts dot de>
 
 pkgname=objfw
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="A portable framework for the Objective C language."
 arch=('i686' 'x86_64')
@@ -10,7 +10,7 @@ license=('custom:QPL')
 depends=('gcc-libs' 'sh')
 makedepends=('mercurial' 'gcc-objc')
 source=(https://webkeks.org/objfw/downloads/$pkgname-$pkgver.tar.gz)
-md5sums=('7e842fb37f088713a78d6af594330621')
+md5sums=('2a731e25ff5278b59af1d32bbf18fb6b')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
