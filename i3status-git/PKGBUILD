@@ -1,7 +1,7 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3status-git
-pkgver=20091124
+pkgver=20100131
 pkgrel=1
 pkgdesc="Generates status bar to use with dzen2 or wmii"
 arch=('i686' 'x86_64')
@@ -9,7 +9,7 @@ url="http://i3.zekjur.net/i3status/"
 license=('BSD')
 depends=('wireless_tools' 'confuse')
 optdepends=("dzen2-svn: As statusbar, dzen2 stable doesn't support -dock yet.")
-makedepends=('git' 'pkgconfig')
+makedepends=('git' 'pkgconfig' 'asciidoc')
 options=('docs')
 conflicts=('i3status')
 provides=('i3status')
