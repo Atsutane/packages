@@ -9,7 +9,7 @@ url="http://i3.zekjur.net/"
 license=('BSD')
 provides=('i3')
 conflicts=('i3')
-depends=('xcb-util' 'libx11' 'libev')
+depends=('xcb-util' 'libx11' 'libev' 'yajl')
 makedepends=('git' 'asciidoc' 'docbook-xsl' 'pkgconfig'
              'bison' 'flex')
 optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
