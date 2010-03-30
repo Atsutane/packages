@@ -1,31 +1,28 @@
-# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
+# Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 
 pkgname=i3
-pkgver=3.d_bf1
-_pkgver=3.d-bf1
-pkgrel=2
+pkgver=3.e
+pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
-depends=('libx11' 'xcb-util' 'libev')
+depends=('libx11' 'xcb-util' 'libev' 'yajl')
 makedepends=('bison' 'flex')
 optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
-            'dmenu: As menu.'
-            'i3lock: For locking your screen.'
-            'i3status: To display systeminformation with a bar.')
+            'dmenu: As menu.')
 options=('docs' '!strip')
-source=(http://i3.zekjur.net/downloads/$pkgname-$_pkgver.tar.bz2)
-md5sums=('f2271064640d67c8a618c8c79451da75')
+source=(http://i3.zekjur.net/downloads/$pkgname-$pkgver.tar.bz2)
+md5sums=('28b70cc287e2c6607576171c3c6b3fdf')
 
 build() {
-  cd "$srcdir/$pkgname-$_pkgver"
+  cd "$srcdir/$pkgname-$pkgver"
   
   make || return 1
 }
 
 package() {
-  cd "$srcdir/$pkgname-$_pkgver"
+  cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="$pkgdir/" install || return 1
   
   install -Dm644 man/i3.man \
