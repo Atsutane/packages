@@ -1,14 +1,14 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 
 pkgname=i3-git
-pkgver=20091229
+pkgver=20100616
 pkgrel=1
 pkgdesc="An improved dynamic tiling window manager"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/"
 license=('BSD')
-provides=('i3')
-conflicts=('i3')
+provides=('i3-wm')
+conflicts=('i3-wm')
 depends=('xcb-util' 'libx11' 'libev' 'yajl')
 makedepends=('git' 'asciidoc' 'docbook-xsl' 'pkgconfig'
              'bison' 'flex')
@@ -60,7 +60,9 @@ package() {
 
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
-  
+ 
+  rm ${pkgdir}/usr/bin/i3-wsbar || return 1
+
   make clean
 }
 
