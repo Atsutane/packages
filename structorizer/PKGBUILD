@@ -1,8 +1,8 @@
 # Maintainer: Thorsten Töpper <atsutane at freethoughts dot de>
 
 pkgname=structorizer
-pkgver=3.18
-_pkgver=3_18
+pkgver=3.19
+_pkgver=3_19
 pkgrel=1
 pkgdesc="A little tool which you can use to create Nassi-Schneiderman Diagrams (NSD)"
 arch=('any')
@@ -11,7 +11,7 @@ license=('custom')
 depends=('java-runtime' 'sh')
 install=("structorizer.install")
 source=("http://www.fisch.lu/Php/download.php?file=structorizer_${_pkgver}.zip")
-md5sums=('ecbc9da9db4da986aa3dec7d5ebd280f')
+md5sums=('7e9741ec5bae1e67230e46902d5261b9')
 
 build() {
   echo -n '#!/bin/sh
