@@ -1,7 +1,7 @@
 # Maintainer: Thorsten Töpper <atsutane-aur@freethoughts.de>
 
 pkgname=i3lock-git
-pkgver=20100724
+pkgver=20100905
 pkgrel=1
 pkgdesc="improved screen locker"
 arch=('i686' 'x86_64')
@@ -32,15 +32,16 @@ build() {
   rm -rf "$srcdir/$_gitname-build"
   cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname-build"
-  make || return 1
+  make
+  gzip i3lock.1
 }
 
 package() {  
   cd "$srcdir/$_gitname-build"
-  make DESTDIR="$pkgdir" install || return 1
-
-  install -Dm644 LICENSE \
-    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
+  make DESTDIR="$pkgdir" install
+  
+  install -Dm644 i3lock.1.gz ${pkgdir}/usr/share/man/man1/i3lock.1.gz
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
 
   make clean
 }

@@ -1,32 +1,29 @@
-# Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
+# Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 
 pkgname=i3lock
-pkgver=1.0
-pkgrel=3
+pkgver=2.0
+pkgrel=1
 pkgdesc="A slightly improved version of slock"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3lock/"
 license=('MIT')
-depends=('libxext' 'pam')
+depends=('cairo' 'pam')
 options=('docs')
 source=(http://i3.zekjur.net/i3lock/$pkgname-$pkgver.tar.gz)
-md5sums=('27db4766271d0c7ea3bbb14ac7b9932c')
+md5sums=('2b55316bf26c816fdcbbf20fd36899d0')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-  
-  sed -i 's+/usr/X11R6+/usr+' config.mk || return 1
-
-  make || return 1
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make
+  gzip i3lock.1
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  make DESTDIR="$pkgdir" install || return 1
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
   
-  install -Dm644 LICENSE \
-    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
-
+  install -Dm644 i3lock.1.gz ${pkgdir}/usr/share/man/man1/i3lock.1.gz
+  install -Dm644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
   make clean
 }
 
