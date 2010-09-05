@@ -3,10 +3,11 @@
 pkgname=i3lock
 pkgver=2.0
 pkgrel=1
-pkgdesc="A slightly improved version of slock"
+pkgdesc="An improved screenlocker based upon XCB and PAM"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3lock/"
 license=('MIT')
+groups=("i3")
 depends=('cairo' 'pam')
 options=('docs')
 source=(http://i3.zekjur.net/i3lock/$pkgname-$pkgver.tar.gz)
