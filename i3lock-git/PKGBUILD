@@ -3,7 +3,7 @@
 pkgname=i3lock-git
 pkgver=20100905
 pkgrel=1
-pkgdesc="improved screen locker"
+pkgdesc="An improved screenlocker based upon XCB and PAM"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3lock/"
 license=('MIT')
