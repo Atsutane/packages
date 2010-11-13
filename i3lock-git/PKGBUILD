@@ -1,13 +1,13 @@
 # Maintainer: Thorsten Töpper <atsutane-aur@freethoughts.de>
 
 pkgname=i3lock-git
-pkgver=20100905
+pkgver=20101003
 pkgrel=1
 pkgdesc="An improved screenlocker based upon XCB and PAM"
 arch=('i686' 'x86_64')
 url="http://i3.zekjur.net/i3lock/"
 license=('MIT')
-depends=('cairo' 'pam')
+depends=('xcb-util' 'pam')
 provides=('i3lock')
 conflicts=('i3lock')
 makedepends=('git')
@@ -32,7 +32,7 @@ build() {
   rm -rf "$srcdir/$_gitname-build"
   cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname-build"
-  make
+  make NOLIBCAIRO=y
   gzip i3lock.1
 }
 
