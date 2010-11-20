@@ -1,7 +1,7 @@
-# Maintainer: Thorsten Töpper <atsutane at freethoughts dot de>
+# Maintainer: Thorsten Töpper <atsutane-aur@freethoughts.de>
 
 pkgname=objfw-docs-hg
-pkgver=1038
+pkgver=1055
 pkgrel=1
 pkgdesc="A portable framework for the Objective C language - Documentation"
 arch=('any')
