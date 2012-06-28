@@ -1,0 +1,61 @@
+# Maintainer: Daniel Micay <danielmicay@gmail.com>
+# Contributor: ryooichi <ryooichi+arch AT gmail DOT com>
+
+# change this to true if you want to use msfupdate
+# this will include the svn repository in the package
+_msfupdate=false
+
+pkgname=metasploit-svn
+pkgver=15542
+pkgrel=1
+pkgdesc="The Metasploit Framework is a development platform for creating security tools and exploits."
+arch=('any')
+url='http://metasploit.com/'
+license=('BSD')
+depends=('ruby' 'ruby-msgpack')
+makedepends=('subversion')
+provides=('metasploit')
+conflicts=('metasploit')
+options=('!strip')
+
+optdepends=('java-runtime: msfgui' 'ruby-pg: database support')
+if $_msfupdate; then
+  optdepends+=('subversion: msfupdate')
+fi
+
+_svntrunk=https://www.metasploit.com/svn/framework3/trunk
+_svnmod=metasploit
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to SVN server...."
+
+  if [[ -d $_svnmod/.svn ]]; then
+    cd $_svnmod && svn up -r $pkgver
+  else
+    svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
+  fi
+
+  msg "SVN checkout done or server timeout"  
+}
+
+package() {
+  cd "$pkgdir"
+  mkdir -p usr/bin opt
+
+  if $_msfupdate; then
+    cp -R "$srcdir/$_svnmod" opt/$_svnmod
+  else
+    svn export $srcdir/$_svnmod opt/$_svnmod
+    rm opt/$_svnmod/msfupdate
+  fi
+
+  install -Dm644 opt/$_svnmod/COPYING usr/share/licenses/$pkgname/COPYING
+
+  cd usr/bin
+
+  for f in ../../opt/metasploit/msf*; do
+    ln -s $f .
+  done
+}
+
