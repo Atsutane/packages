@@ -1,6 +1,6 @@
 # Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 pkgname=john-git
-pkgver=20120703
+pkgver=20120707
 pkgrel=1
 pkgdesc="A fast password cracker (using the git repository of the jumbo patch)"
 arch=('i686' 'x86_64')
@@ -15,7 +15,9 @@ optdepends=("perl: for executing some of the scripts at /usr/share/john"
             "python: for executing some of the scripts at /usr/share/john")
 backup=('etc/john/john.conf')
 install=john.install
+source=(params.h.patch)
 options=('!strip')
+md5sums=('f69ed632eba8fb9e45847a4b4a323787')
 
 _gitroot="https://github.com/magnumripper/magnum-jumbo.git"
 _gitname="magnum-jumbo"
@@ -37,7 +39,15 @@ build() {
   rm -rf "$srcdir/$_gitname-build"
   git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname-build/src"
-
+	
+  patch -p0 < ${srcdir}/params.h.patch
+	if [ "$CARCH" == "x86_64" ]; then
+	    sed -i 's|CFLAGS = -c -Wall -O2|CFLAGS = -c -Wall -O2 -march=x86-64 -DJOHN_SYSTEMWIDE=1|' Makefile
+	    sed -i 's|^LDFLAGS =\(.*\)|LDFLAGS =\1 -lm|' Makefile
+	    sed -i -e 's|-m486||g' Makefile
+	  else sed -i 's|CFLAGS = -c -Wall -O2|CFLAGS = -c -Wall -O2 -march=i686 -DJOHN_SYSTEMWIDE=1|' Makefile
+	fi
+	
 	# enable OMP
 	sed -i 's|#OMPFLAGS = -fopenmp$|OMPFLAGS = -fopenmp|' Makefile
 
