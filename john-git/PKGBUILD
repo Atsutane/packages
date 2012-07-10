@@ -1,6 +1,6 @@
 # Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 pkgname=john-git
-pkgver=20120707
+pkgver=20120710
 pkgrel=1
 pkgdesc="A fast password cracker (using the git repository of the jumbo patch)"
 arch=('i686' 'x86_64')
@@ -9,10 +9,13 @@ license=('GPL2' 'custom')
 depends=('openssl')
 provides=('john')
 conflicts=('john')
-makedepends=('git')
+makedepends=('git' 'libgsf' 'libxml2' 'nss')
 optdepends=("perl: for executing some of the scripts at /usr/share/john"
             "ruby: for executing some of the scripts at /usr/share/john"
-            "python: for executing some of the scripts at /usr/share/john")
+            "python: for executing some of the scripts at /usr/share/john"
+            "nss: to use mozilla2john"
+            "libgsf: to use office2john"
+            "libxml2: to use office2john")
 backup=('etc/john/john.conf')
 install=john.install
 source=(params.h.patch)
@@ -48,14 +51,25 @@ build() {
 	  else sed -i 's|CFLAGS = -c -Wall -O2|CFLAGS = -c -Wall -O2 -march=i686 -DJOHN_SYSTEMWIDE=1|' Makefile
 	fi
 	
-	# enable OMP
+  # correct some paths
+	sed -i 's|/usr/local/cuda|/opt/cuda-toolkit|' Makefile
+	sed -i 's|/usr/local|/usr|' Makefile
+	
+  # enable OMP
 	sed -i 's|#OMPFLAGS = -fopenmp$|OMPFLAGS = -fopenmp|' Makefile
+
+  # enable NSS for mozilla2john
+  sed -i 's|#HAVE_NSS |HAVE_NSS |' Makefile
 
 	# build john
 	if [ "$CARCH" == "x86_64" ]; then
+      # if active it depends on cuda-toolkit
+	    #make linux-x86-64-cuda
 	    make linux-x86-64
 	  else make linux-x86-mmx
 	fi
+
+  make office2john
 }
 
 package() {
@@ -83,6 +97,7 @@ package() {
 	john_scripts=(benchmark-unify \
 		cracf2john.py \
 		genincstats.rb \
+		ikescan2john.py \
 		ldif2john.pl \
 		lion2john-alt.pl \
 		lion2john.pl \
@@ -113,12 +128,15 @@ package() {
 	install -Dm755 ${srcdir}/$_gitname-build/run/tgtsnarf ${pkgdir}/usr/bin/tgtsnarf
 	install -Dm755 ${srcdir}/$_gitname-build/run/mailer ${pkgdir}/usr/bin/john-mailer
 	install -Dm755 ${srcdir}/$_gitname-build/run/raw2dyna ${pkgdir}/usr/bin/raw2dyna
+	install -Dm755 ${srcdir}/$_gitname-build/run/office2john ${pkgdir}/usr/bin/office2john
 
 	# create links
 	cd ${pkgdir}/usr/bin
 	ln -s john hccap2john
 	ln -s john keepass2john
+	ln -s john mozilla2john
 	ln -s john pdf2john
+	ln -s john pfx2john
 	ln -s john pwsafe2john
 	ln -s john racf2john
 	ln -s john rar2john
