@@ -26,50 +26,50 @@ _gitroot="https://github.com/magnumripper/magnum-jumbo.git"
 _gitname="magnum-jumbo"
 
 build() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
+	cd "$srcdir"
+	msg "Connecting to GIT server...."
 
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build/src"
-	
-  patch -p0 < ${srcdir}/params.h.patch
-	if [ "$CARCH" == "x86_64" ]; then
-	    sed -i 's|CFLAGS = -c -Wall -O2|CFLAGS = -c -Wall -O2 -march=x86-64 -DJOHN_SYSTEMWIDE=1|' Makefile
-	    sed -i 's|^LDFLAGS =\(.*\)|LDFLAGS =\1 -lm|' Makefile
-	    sed -i -e 's|-m486||g' Makefile
-	  else sed -i 's|CFLAGS = -c -Wall -O2|CFLAGS = -c -Wall -O2 -march=i686 -DJOHN_SYSTEMWIDE=1|' Makefile
+	if [[ -d "$_gitname" ]]; then
+		cd "$_gitname" && git pull origin
+		msg "The local files are updated."
+	else
+		git clone "$_gitroot" "$_gitname"
 	fi
-	
-  # correct some paths
+
+	msg "GIT checkout done or server timeout"
+	msg "Starting build..."
+
+	rm -rf "$srcdir/$_gitname-build"
+	git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+	cd "$srcdir/$_gitname-build/src"
+
+	patch -p0 < ${srcdir}/params.h.patch
+	if [ "$CARCH" == "x86_64" ]; then
+			sed -i 's|CFLAGS = -c -Wall -O2|CFLAGS = -c -Wall -O2 -march=x86-64 -DJOHN_SYSTEMWIDE=1|' Makefile
+			sed -i 's|^LDFLAGS =\(.*\)|LDFLAGS =\1 -lm|' Makefile
+			sed -i -e 's|-m486||g' Makefile
+		else sed -i 's|CFLAGS = -c -Wall -O2|CFLAGS = -c -Wall -O2 -march=i686 -DJOHN_SYSTEMWIDE=1|' Makefile
+	fi
+
+	# correct some paths
 	sed -i 's|/usr/local/cuda|/opt/cuda-toolkit|' Makefile
 	sed -i 's|/usr/local|/usr|' Makefile
-	
-  # enable OMP
+
+	# enable OMP
 	sed -i 's|#OMPFLAGS = -fopenmp$|OMPFLAGS = -fopenmp|' Makefile
 
-  # enable NSS for mozilla2john
-  sed -i 's|#HAVE_NSS |HAVE_NSS |' Makefile
+	# enable NSS for mozilla2john
+	sed -i 's|#HAVE_NSS |HAVE_NSS |' Makefile
 
 	# build john
 	if [ "$CARCH" == "x86_64" ]; then
-      # if active it depends on cuda-toolkit
-	    #make linux-x86-64-cuda
-	    make linux-x86-64
-	  else make linux-x86-mmx
+			# if active it depends on cuda-toolkit
+			#make linux-x86-64-cuda
+			make linux-x86-64
+		else make linux-x86-mmx
 	fi
 
-  make office2john
+	make office2john
 }
 
 package() {
@@ -89,7 +89,7 @@ package() {
 	install -m644 ${srcdir}/$_gitname-build/run/dictionary.rfc2865 ${pkgdir}/usr/share/john/
 	install -m644 ${srcdir}/$_gitname-build/run/stats ${pkgdir}/usr/share/john/
 	install -m644 ${srcdir}/$_gitname-build/run/{all,alnum,alpha,digits,lanman}.chr \
- 			${pkgdir}/usr/share/john/
+			${pkgdir}/usr/share/john/
 	install -m644 ${srcdir}/$_gitname-build/run/{dumb16,dumb32,dynamic}.conf \
 			${pkgdir}/usr/share/john/
 
