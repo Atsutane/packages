@@ -7,11 +7,11 @@ foreach pkgdir ( *-{git,svn})
 
 cd $pkgdir
 # get rid of debug builds
-rm *.pkg.tar.xz
+rm -f *.pkg.tar.xz
 
 makepkg -f
 repo-remove `ls $TARGET_REPO_DIR/*.db.tar.gz` $pkgdir
-rm `ls $TARGET_REPO_DIR/$pkgdir-*.pkg.tar.xz`
+rm -f `ls $TARGET_REPO_DIR/$pkgdir-*.pkg.tar.xz`
 mv `ls $pkgdir-*.pkg.tar.xz` $TARGET_REPO_DIR 
 repo-add `ls $TARGET_REPO_DIR/*.db.tar.gz` `ls $TARGET_REPO_DIR/$pkgdir-*.pkg.tar.xz`
 cd ..
