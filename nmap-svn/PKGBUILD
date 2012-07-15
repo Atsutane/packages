@@ -1,0 +1,52 @@
+# Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
+
+pkgname=nmap-svn
+pkgver=29215
+pkgrel=1
+pkgdesc="Utility for network discovery and security auditing."
+arch=('i686' 'x86_64')
+url="http://www.nmap.org"
+license=('GPL')
+depends=('pcre' 'openssl' 'libpcap' 'lua')
+makedepends=('subversion' 'pygtk')
+optdepends=('pygtk: in order to use zenmap')
+provides=('nmap')
+conflicts=('nmap')
+options=('!strip')
+
+_svntrunk=https://svn.nmap.org/nmap
+_svnmod=nmap
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to SVN server...."
+
+  if [[ -d "$_svnmod/.svn" ]]; then
+    (cd "$_svnmod" && svn up -r "$pkgver")
+  else
+    svn co "$_svntrunk" --config-dir ./ -r "$pkgver" "$_svnmod"
+  fi
+
+  msg "SVN checkout done or server timeout"
+  msg "Starting build..."
+
+  rm -rf "$srcdir/$_svnmod-build"
+  cp -r "$srcdir/$_svnmod" "$srcdir/$_svnmod-build"
+  cd "$srcdir/$_svnmod-build"
+  
+  # Show icon only if runnable; see FS#12045
+  echo 'TryExec=/usr/bin/pygtk-demo' >> zenmap/install_scripts/unix/zenmap.desktop
+  echo 'TryExec=/usr/bin/pygtk-demo' >> zenmap/install_scripts/unix/zenmap-root.desktop
+
+  ./configure --prefix=/usr --libexecdir=/usr/lib --mandir=/usr/share/man PYTHON="python2"
+  make
+}
+
+package() {
+  cd "$srcdir/$_svnmod-build"
+  make DESTDIR="$pkgdir/" install
+  install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  rm "${pkgdir}"/usr/bin/uninstall_zenmap
+}
+
+# vim:set ts=2 sw=2 et:
