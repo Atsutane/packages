@@ -1,0 +1,5 @@
+*/src
+*/pkg
+tarballs/*
+*/*.tar.gz
+*/*.tar.xz
