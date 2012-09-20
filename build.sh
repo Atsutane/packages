@@ -18,3 +18,5 @@ cd ..
 
 end
 
+rm -rf */src/*-build */pkg
+
