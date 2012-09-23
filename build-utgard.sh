@@ -1,4 +1,10 @@
 #!/usr/bin/env zsh
+
+# This script copies everything to a tmpfs folder and builds VCS packages
+# there. This solemnly happens with VCS packages as it does not hurt to build
+# stable release packages by hand when a new version has been released.
+
+
 COMPILE_DIR=$HOME/compile
 TARGET_REPO_DIR=$COMPILE_DIR/results
 SRC_DIR=`pwd`
@@ -27,6 +33,9 @@ foreach pkgdir ( *-{git,svn})
 	
 	# sync the current state back to the origin.
 	rsync -acv $pkgdir $SRC_DIR
+	
+	# Get rid of what has been saved.
+	rm -rf $pkgdir
 end
 
 # clean up
