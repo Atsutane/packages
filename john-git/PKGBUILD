@@ -1,6 +1,6 @@
 # Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 pkgname=john-git
-pkgver=20120710
+pkgver=20120922
 pkgrel=1
 pkgdesc="A fast password cracker (using the git repository of the jumbo patch)"
 arch=('i686' 'x86_64')
@@ -22,8 +22,8 @@ source=(params.h.patch)
 options=('!strip')
 md5sums=('f69ed632eba8fb9e45847a4b4a323787')
 
-_gitroot="https://github.com/magnumripper/magnum-jumbo.git"
-_gitname="magnum-jumbo"
+_gitroot="https://github.com/magnumripper/JohnTheRipper.git"
+_gitname="JohnTheRipper"
 
 build() {
 	cd "$srcdir"
