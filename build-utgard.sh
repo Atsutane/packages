@@ -36,7 +36,11 @@ foreach pkgdir ( *-{git,svn})
 	
 	# Get rid of what has been saved.
 	rm -rf $pkgdir
+
+	# Need some time to get the CPU temperature down
+	sleep 20
 end
 
 # clean up
 rm -rf $COMPILE_DIR/$SRC_DIR_NAME
+
