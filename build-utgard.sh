@@ -4,11 +4,15 @@
 # there. This solemnly happens with VCS packages as it does not hurt to build
 # stable release packages by hand when a new version has been released.
 
-
-COMPILE_DIR=$HOME/compile
+# default values
+COMPILE_DIR=/tmp
 TARGET_REPO_DIR=$COMPILE_DIR/results
 SRC_DIR=`pwd`
 SRC_DIR_NAME=`pwd | sed -r s-^/.+/--`
+SLEEP_TIME=0
+
+
+source .build.conf > /dev/null 2>&1
 
 install -d $TARGET_REPO_DIR
 
@@ -38,7 +42,7 @@ foreach pkgdir ( *-{git,svn})
 	rm -rf $pkgdir
 
 	# Need some time to get the CPU temperature down
-	sleep 20
+	sleep $SLEEP_TIME
 end
 
 # clean up
