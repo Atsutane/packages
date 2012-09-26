@@ -6,18 +6,19 @@
 
 # default values
 COMPILE_DIR=/tmp
+SLEEP_TIME=0
+
+source .build.conf > /dev/null 2>&1
+
 TARGET_REPO_DIR=$COMPILE_DIR/results
 SRC_DIR=`pwd`
 SRC_DIR_NAME=`pwd | sed -r s-^/.+/--`
-SLEEP_TIME=0
 
-
-source .build.conf > /dev/null 2>&1
 
 install -d $TARGET_REPO_DIR
 
 # Make sure there is no such directory
-rm -rf $COMPILE_DIR/$SRC_DIR_NAME
+rm -rf $COMPILE_DIR/$SRC_DIR_NAME > /dev/null 2>&1
 
 cp -r $SRC_DIR $COMPILE_DIR
 cd $COMPILE_DIR/$SRC_DIR_NAME
@@ -26,10 +27,10 @@ foreach pkgdir ( *-{git,svn})
 	cd $pkgdir
 	
 	# get rid of debug builds
-	rm -rf *.pkg.tar.xz ./src/*-build ./pkg
+	rm -rf *.pkg.tar.xz ./src/*-build ./pkg > /dev/null 2>&1
 
 	makepkg -f
-	mv *.pkg.tar.xz $TARGET_REPO_DIR  
+	mv *.pkg.tar.xz $TARGET_REPO_DIR 
 
 	rm -rf ./src/*-build ./pkg
 	
