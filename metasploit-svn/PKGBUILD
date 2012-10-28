@@ -6,7 +6,7 @@
 _msfupdate=false
 
 pkgname=metasploit-svn
-pkgver=15888
+pkgver=16007
 pkgrel=1
 pkgdesc="The Metasploit Framework is a development platform for creating security tools and exploits."
 arch=('any')
@@ -46,7 +46,7 @@ package() {
   if $_msfupdate; then
     cp -R "$srcdir/$_svnmod" opt/$_svnmod
   else
-    svn export $srcdir/$_svnmod opt/$_svnmod
+    svn export $srcdir/$_svnmod opt/$_svnmod > /dev/null
     rm opt/$_svnmod/msfupdate
   fi
 
