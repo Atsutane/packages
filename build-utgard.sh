@@ -60,7 +60,7 @@ foreach pkgdir ($pkgs_to_build)
 	build_pkg "$pkgdir"
 
 	# sync the current state back to the origin.
-	rsync -acv "$pkgdir" "$SRC_DIR"
+	rsync -acv --delete-before "$pkgdir" "$SRC_DIR"
 
 	# Get rid of what has been saved.
 	rm -rf "$pkgdir"
