@@ -4,3 +4,6 @@ tarballs/*
 */*.tar.gz
 */*.tar.xz
 .build.conf
+*~
+*.swp
+*.swap

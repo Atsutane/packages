@@ -32,13 +32,12 @@ optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
 options=('docs' '!strip')
 
 ##source=(git://code.i3wm.org/i3)
-##_sourceroot=i3
 ##sha1sums=('SKIP')
 
 ########## REMOVE FOR PACMAN 4.0.4 ##########
 _gitroot="git://code.i3wm.org/i3"
-_gitname="i3"
 #############################################
+_gitname="i3"
 
 ##pkgver() {
 ##  cd "$srcdir/$_gitname"
@@ -46,7 +45,7 @@ _gitname="i3"
 ##}
 
 ##build() {
-##  cd "$_sourceroot"
+##  cd "$_gitname"
 ##  make
 ##  make -C man
 ##}
@@ -80,7 +79,7 @@ build() {
 #############################################
 
 package() {
-  ##cd "$_sourceroot"
+  ##cd "$_gitname"
 ########## REMOVE FOR PACMAN 4.0.4 ##########
   cd "$srcdir/$_gitname-build"
 #############################################
