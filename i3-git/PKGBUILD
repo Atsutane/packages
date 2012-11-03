@@ -1,6 +1,17 @@
 # Maintainer: Thorsten Toepper <atsutane at freethoughts dot de>
 # Contributor: William Giokas <1007380@gmail.com>
 
+# The lines prefaced with a ## are for use with pacman-git. They will either
+# break your build process or have no effect at all. Only uncomment for pacman-git.
+# Lines that can be commented out when pacman 4.0.3.403 becomes mainstream
+# are marked by a
+########## REMOVE FOR PACMAN 4.0.4 ##########
+# and closed by
+#############################################
+#
+# Thank you,
+# William Giokas
+
 pkgname=i3-git
 pkgver=20121103
 pkgrel=1
@@ -20,9 +31,27 @@ optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
             'i3status: To display system information with a bar.')
 options=('docs' '!strip')
 
+##source=(git://code.i3wm.org/i3)
+##_sourceroot=i3
+##sha1sums=('SKIP')
+
+########## REMOVE FOR PACMAN 4.0.4 ##########
 _gitroot="git://code.i3wm.org/i3"
 _gitname="i3"
+#############################################
 
+##pkgver() {
+##  cd "$srcdir/$_gitname"
+##  git describe --tags | sed 's/-/./g'
+##}
+
+##build() {
+##  cd "$_sourceroot"
+##  make
+##  make -C man
+##}
+
+########## REMOVE FOR PACMAN 4.0.4 ##########
 build() {
   cd "$srcdir"
   msg "Connecting to GIT server...."
@@ -32,7 +61,7 @@ build() {
     msg "The local files are updated."
   else
     git clone $_gitroot
-    
+
     cd $_gitname
     git branch -f next origin/next
     git checkout next
@@ -48,14 +77,18 @@ build() {
   make
   make -C man
 }
+#############################################
 
 package() {
+  ##cd "$_sourceroot"
+########## REMOVE FOR PACMAN 4.0.4 ##########
   cd "$srcdir/$_gitname-build"
+#############################################
   make DESTDIR="$pkgdir/" install
 
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
-  
+
   install -Dm644 man/i3.1 \
     ${pkgdir}/usr/share/man/man1/i3.1
   install -Dm644 man/i3bar.1 \
@@ -72,7 +105,7 @@ package() {
     ${pkgdir}/usr/share/man/man1/i3-nagbar.1
   install -Dm644 LICENSE \
     ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
- 
+
   make clean
 }
 
