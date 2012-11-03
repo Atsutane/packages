@@ -1,17 +1,6 @@
 # Maintainer: Thorsten Töpper <atsutane-aur@freethoughts.de>
 # Contributor: William Giokas <1007380@gmail.com>
 
-# The lines prefaced with a ## are for use with pacman-git. They will either
-# break your build process or have no effect at all. Only uncomment for pacman-git.
-# Lines that can be commented out when pacman 4.0.3.403 becomes mainstream
-# are marked by a
-########## REMOVE FOR PACMAN 4.0.4 ##########
-# and closed by
-#############################################
-#
-# Thank you,
-# William Giokas
-
 pkgname=i3status-git
 pkgver=20121003
 pkgrel=1
@@ -26,26 +15,10 @@ options=('docs')
 install=i3status.install
 conflicts=('i3status')
 provides=('i3status')
-##source=(git://code.i3wm.org/i3status)
-##sha1sums=('SKIP')
 
-########## REMOVE FOR PACMAN 4.0.4 ##########
 _gitroot="git://code.i3wm.org/i3status"
-#############################################
 _gitname="i3status"
 
-##pkgver() {
-##  cd "$srcdir/$_gitname"
-##  git describe --tags | sed 's/-/./g'
-##}
-
-##build() {
-##  cd "$_gitname"
-##  make
-##}
-
-
-########## REMOVE FOR PACMAN 4.0.4 ##########
 build() {
   cd "${srcdir}"
   msg "Connecting to GIT server...."
@@ -69,13 +42,9 @@ build() {
 
   make
 }
-#############################################
 
 package() {
-########## REMOVE FOR PACMAN 4.0.4 ##########
-##  cd "${_gitname}"
   cd "${srcdir}/${_gitname}-build"
-#############################################
 
   make DESTDIR="${pkgdir}" install
 
