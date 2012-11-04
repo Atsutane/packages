@@ -9,7 +9,7 @@ url='http://www.openvas.org'
 license=('GPL')
 groups=('openvas-vcs')
 depends=('openvas-libraries-svn')
-makedepends=('subversion')
+makedepends=('subversion' 'cmake')
 options=('!strip')
 
 _svntrunk='https://svn.wald.intevation.org/svn/openvas/trunk/openvas-scanner'
