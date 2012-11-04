@@ -13,7 +13,7 @@ groups=('openvas-vcs')
 depends=('gnutls' 'libpcap' 'gpgme' 'bison')
 makedepends=('subversion' 'cmake')
 options=('!strip')
-source=('/openvas-nowerror.patch')
+source=('openvas-nowerror.patch')
 md5sums=('fbef16c2368d70b1e1de99b5fcd4d0c8')
 
 _svntrunk='https://svn.wald.intevation.org/svn/openvas/trunk/openvas-libraries'
