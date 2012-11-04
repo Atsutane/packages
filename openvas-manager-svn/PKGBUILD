@@ -1,0 +1,47 @@
+# Maintainer: Thorsten Töpper <atsutane-aur@freethoughts.de>
+
+pkgname='openvas-manager-svn'
+pkgver=14422
+pkgrel=1
+pkgdesc='The OpenVAS manager'
+arch=('i686' 'x86_64')
+url='http://www.openvas.org'
+license=('GPL')
+groups=('openvas-vcs')
+depends=('openvas-libraries-svn' 'sqlite')
+makedepends=('subversion' 'cmake')
+options=('!strip')
+
+_svntrunk='https://svn.wald.intevation.org/svn/openvas/trunk/openvas-manager'
+_svnmod='openvas-manager'
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to SVN server...."
+
+  if [[ -d "$_svnmod/.svn" ]]; then
+    (cd "$_svnmod" && svn up -r "$pkgver")
+  else
+    svn co "$_svntrunk" --config-dir ./ -r "$pkgver" "$_svnmod"
+  fi
+
+  msg "SVN checkout done or server timeout"
+  msg "Starting build..."
+
+  rm -rf "$srcdir/$_svnmod-build"
+  svn export "$srcdir/$_svnmod" "$srcdir/$_svnmod-build"
+
+  cd "$srcdir/$_svnmod-build"
+
+  # Also set the LIBDIR specifically
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONFDIR=/etc -DLOCALSTATEDIR=/var \
+    -DLIBDIR=/usr/lib .
+  make
+}
+
+package() {
+  cd "$srcdir/$_svnmod-build"
+  make DESTDIR="$pkgdir/" install
+}
+
+# vim:set ts=2 sw=2 et:
