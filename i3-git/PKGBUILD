@@ -41,11 +41,12 @@ _gitname="i3"
 
 ##pkgver() {
 ##  cd "$srcdir/$_gitname"
-##  git describe --tags | sed 's/-/./g'
+##  git describe --tags origin/next | sed 's/-/./g'
 ##}
 
 ##build() {
 ##  cd "$_gitname"
+##  git checkout next
 ##  make
 ##  make -C man
 ##}
