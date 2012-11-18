@@ -31,7 +31,7 @@ optdepends=('rxvt-unicode: The terminal emulator used in the default config.'
             'i3status: To display system information with a bar.')
 options=('docs' '!strip')
 
-##source=(git://code.i3wm.org/i3)
+##source=(git://code.i3wm.org/i3#branch=next)
 ##sha1sums=('SKIP')
 
 ########## REMOVE FOR PACMAN 4.0.4 ##########
@@ -41,12 +41,11 @@ _gitname="i3"
 
 ##pkgver() {
 ##  cd "$srcdir/$_gitname"
-##  git describe --tags origin/next | sed 's/-/./g'
+##  git describe --tags | sed 's/-/./g'
 ##}
 
 ##build() {
 ##  cd "$_gitname"
-##  git checkout next
 ##  make
 ##  make -C man
 ##}
