@@ -1,0 +1,30 @@
+# Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
+
+_author=AHERNIT
+_perlmod=String-HexConvert
+pkgname=perl-string-hexconvert
+pkgver=0.01
+pkgrel=1
+pkgdesc="Converts ascii strings to hex and reverse"
+arch=('any')
+url="http://search.cpan.org/~$_author/$_perlmod-$pkgver/"
+license=('LGPL')
+depends=('perl>=5.10.0')
+options=(!emptydirs)
+source=("http://cpan.perl.org/modules/by-authors/id/A/AH/$_author/$_perlmod-$pkgver.tar.gz")
+md5sums=('c7808baa644e596f736b02db5948ecde')
+
+build() {
+  cd "$srcdir/$_perlmod"
+
+  # Install module in vendor directories.
+  PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+  make
+}
+
+package() {
+  cd "$srcdir/$_perlmod"
+  make install DESTDIR="$pkgdir/"
+}
+
+# vim:set ts=2 sw=2 et:
