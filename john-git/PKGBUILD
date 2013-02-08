@@ -1,6 +1,6 @@
 # Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 pkgname=john-git
-pkgver=20120922
+pkgver=20130208
 pkgrel=1
 pkgdesc="A fast password cracker (using the git repository of the jumbo patch)"
 arch=('i686' 'x86_64')
@@ -94,22 +94,35 @@ package() {
 			${pkgdir}/usr/share/john/
 
 	# install scripts
-	john_scripts=(benchmark-unify \
+	john_scripts=( \
+		agilekc2john.py \
+		benchmark-unify \
 		cracf2john.py \
+		encfs2john.py \
 		genincstats.rb \
+		htdigest2john.py \
 		ikescan2john.py \
+		kdcdump2john.py \
+		krbpa2john.py \
+		lastpass2john.py \
 		ldif2john.pl \
 		lion2john-alt.pl \
 		lion2john.pl \
+		ml2john.py \
 		netntlm.pl \
 		netscreen.py \
 		odf2john.py \
+		office2john.py \
 		pass_gen.pl \
+		pdf2john.py \
 		radius2john.pl \
 		sap2john.pl \
 		sha-dump.pl \
 		sha-test.pl \
-		sipdump2john.py)
+		sipdump2john.py \
+		sshng2john.py \
+		strip2john.py \
+		sxc2john.py)
 	for john_script in "${john_scripts[@]}"; do
 		install -m755 ${srcdir}/$_gitname-build/run/${john_script} \
 			${pkgdir}/usr/share/john
@@ -118,6 +131,8 @@ package() {
 	install -m644 ${srcdir}/$_gitname-build/run/dynamic.conf ${pkgdir}/etc/john/
 	install -Dm644 ${srcdir}/$_gitname-build/run/john.bash_completion \
 		${pkgdir}/etc/bash_completion.d/john
+	install -Dm644 ${srcdir}/$_gitname-build/run/john.zsh_completion \
+		${pkgdir}/etc/zsh/john
 
 	# install binaries
 	install -Dm755 ${srcdir}/$_gitname-build/run/john ${pkgdir}/usr/bin/john
