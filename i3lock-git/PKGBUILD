@@ -13,7 +13,7 @@
 # William Giokas
 
 pkgname=i3lock-git
-pkgver=20121028
+pkgver=20130130
 pkgrel=1
 pkgdesc="An improved screenlocker based upon XCB and PAM"
 arch=('i686' 'x86_64')
@@ -60,6 +60,9 @@ build() {
   rm -rf "$srcdir/$_gitname-build"
   cp -r "$srcdir/$_gitname" "$srcdir/$_gitname-build"
   cd "$srcdir/$_gitname-build"
+
+  # Fix ticket FS#31544, sed line taken from gentoo
+  sed -i -e 's:login:system-auth:' i3lock.pam
   make
   gzip i3lock.1
 }
