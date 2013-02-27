@@ -1,13 +1,16 @@
 # Maintainer: Thorsten Töpper <atsutane-aur@freethoughts.de>
 
 pkgname='openvas-administrator-svn'
-pkgver=14121
+pkgver=14915
 pkgrel=1
 pkgdesc='The OpenVAS administrator'
 arch=('i686' 'x86_64')
 url='http://www.openvas.org'
 license=('GPL')
 groups=('openvas-vcs')
+conflicts=('openvas-administrator')
+provides=('openvas-administrator')
+replaces=('openvas-administrator')
 depends=('openvas-libraries-svn')
 makedepends=('subversion' 'cmake')
 options=('!strip')
