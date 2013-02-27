@@ -3,13 +3,16 @@
 # Vlatko Kosturjak, Mike Roberts and originally by Ermak.
 
 pkgname='openvas-libraries-svn'
-pkgver=14397
+pkgver=15215
 pkgrel=1
 pkgdesc='The OpenVAS libraries'
 arch=('i686' 'x86_64')
 url='http://www.openvas.org'
 license=('GPL')
 groups=('openvas-vcs')
+conflicts=('openvas-libraries')
+provides=('openvas-libraries')
+replaces=('openvas-libraries')
 depends=('gnutls' 'libpcap' 'gpgme' 'bison')
 makedepends=('subversion' 'cmake')
 options=('!strip')
