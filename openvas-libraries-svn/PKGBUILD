@@ -3,7 +3,7 @@
 # Vlatko Kosturjak, Mike Roberts and originally by Ermak.
 
 pkgname='openvas-libraries-svn'
-pkgver=15215
+pkgver=15692
 pkgrel=1
 pkgdesc='The OpenVAS libraries'
 arch=('i686' 'x86_64')
@@ -16,8 +16,14 @@ replaces=('openvas-libraries')
 depends=('gnutls' 'libpcap' 'gpgme' 'bison')
 makedepends=('subversion' 'cmake')
 options=('!strip')
-source=('openvas-nowerror.patch')
-md5sums=('fbef16c2368d70b1e1de99b5fcd4d0c8')
+source=('openvas-nowerror-base.patch' 'openvas-nowerror-misc.patch'
+        'openvas-nowerror-omp.patch' 'openvas-nowerror-hg.patch'
+        'openvas-nowerror-nasl.patch')
+md5sums=('c22f681edc9ebea41b36c0d25f3d3948'
+         'f4e3baf3402ce66f843edbb127df474e'
+         'd48d145e4f08d51ba3764cd7f4436b6d'
+         '0da9569f95c63301b0b55daa5881487e'
+         '3fd75873c17588d0375abc8ca42da399')
 
 _svntrunk='https://svn.wald.intevation.org/svn/openvas/trunk/openvas-libraries'
 _svnmod='openvas-libraries'
@@ -34,14 +40,18 @@ build() {
 
   msg "SVN checkout done or server timeout"
   msg "Starting build..."
-
+  
   rm -rf "$srcdir/$_svnmod-build"
   svn export "$srcdir/$_svnmod" "$srcdir/$_svnmod-build"
 
   cd "$srcdir/$_svnmod-build"
 
   # Patch for the gnutls werrors
-  patch -p1 < "$srcdir/openvas-nowerror.patch"
+  patch -p0 < "$srcdir/openvas-nowerror-base.patch"
+  patch -p0 < "$srcdir/openvas-nowerror-hg.patch"
+  patch -p0 < "$srcdir/openvas-nowerror-misc.patch"
+  patch -p0 < "$srcdir/openvas-nowerror-nasl.patch"
+  patch -p0 < "$srcdir/openvas-nowerror-omp.patch"
 
   # Also set the LIBDIR specifically
   cmake -DCMAKE_INSTALL_PREFIX=/usr -DSYSCONFDIR=/etc -DLOCALSTATEDIR=/var \

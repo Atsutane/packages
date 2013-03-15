@@ -1,0 +1,11 @@
+--- hg/CMakeLists.txt.org	2013-03-14 22:07:46.112957887 +0100
++++ hg/CMakeLists.txt	2013-03-14 22:09:39.422327063 +0100
+@@ -28,7 +28,7 @@
+ # Library
+ set (HARDENING_FLAGS            "-Wformat -Wformat-security -O2 -D_FORTIFY_SOURCE=2 -fstack-protector -Wl,-z,relro -Wl,-z,now")
+ 
+-set (CMAKE_C_FLAGS_DEBUG        "${CMAKE_C_FLAGS_DEBUG} -Werror")
++set (CMAKE_C_FLAGS_DEBUG        "${CMAKE_C_FLAGS_DEBUG}")
+ set (CMAKE_C_FLAGS              "${CMAKE_C_FLAGS} ${HARDENING_FLAGS} -Wall -fPIC")
+ 
+ set (FILES hg_add_hosts.c hg_debug.c hg_dns_axfr.c hg_filter.c hg_subnet.c 

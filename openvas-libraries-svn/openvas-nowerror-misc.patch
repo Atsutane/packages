@@ -1,0 +1,11 @@
+--- misc/CMakeLists.txt.org	2013-03-14 22:08:11.873264928 +0100
++++ misc/CMakeLists.txt	2013-03-14 22:09:39.422327063 +0100
+@@ -52,7 +52,7 @@
+ 
+ set (HARDENING_FLAGS            "-Wformat -Wformat-security -O2 -D_FORTIFY_SOURCE=2 -fstack-protector -Wl,-z,relro -Wl,-z,now")
+ 
+-set (CMAKE_C_FLAGS_DEBUG        "${CMAKE_C_FLAGS_DEBUG} -Werror")
++set (CMAKE_C_FLAGS_DEBUG        "${CMAKE_C_FLAGS_DEBUG}")
+ set (CMAKE_C_FLAGS              "${CMAKE_C_FLAGS} ${HARDENING_FLAGS} -Wall -fPIC")
+ 
+ if (MINGW)
