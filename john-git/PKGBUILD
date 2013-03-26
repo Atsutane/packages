@@ -1,6 +1,6 @@
 # Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 pkgname=john-git
-pkgver=20130208
+pkgver=20130326
 pkgrel=1
 pkgdesc="A fast password cracker (using the git repository of the jumbo patch)"
 arch=('i686' 'x86_64')
@@ -68,8 +68,6 @@ build() {
 			make linux-x86-64
 		else make linux-x86-mmx
 	fi
-
-	make office2john
 }
 
 package() {
@@ -112,7 +110,7 @@ package() {
 		netntlm.pl \
 		netscreen.py \
 		odf2john.py \
-		office2john.py \
+    office2john.py \
 		pass_gen.pl \
 		pdf2john.py \
 		radius2john.pl \
@@ -143,7 +141,6 @@ package() {
 	install -Dm755 ${srcdir}/$_gitname-build/run/tgtsnarf ${pkgdir}/usr/bin/tgtsnarf
 	install -Dm755 ${srcdir}/$_gitname-build/run/mailer ${pkgdir}/usr/bin/john-mailer
 	install -Dm755 ${srcdir}/$_gitname-build/run/raw2dyna ${pkgdir}/usr/bin/raw2dyna
-	install -Dm755 ${srcdir}/$_gitname-build/run/office2john ${pkgdir}/usr/bin/office2john
 
 	# create links
 	cd ${pkgdir}/usr/bin
