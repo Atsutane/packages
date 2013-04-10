@@ -1,47 +1,37 @@
 # Maintainer: Thorsten Töpper <atsutane-tu@freethoughts.de>
 pkgname=john-git
-pkgver=20130326
+pkgver=magnum.jumbo.1026.g7a7efbd
 pkgrel=1
-pkgdesc="A fast password cracker (using the git repository of the jumbo patch)"
+pkgdesc='A fast password cracker (using the git repository of the jumbo patch)'
 arch=('i686' 'x86_64')
-url="http://www.openwall.com/$pkgname/"
+url='http://www.openwall.com/john/'
 license=('GPL2' 'custom')
 depends=('openssl')
 provides=('john')
 conflicts=('john')
 makedepends=('git' 'libgsf' 'libxml2' 'nss')
-optdepends=("perl: for executing some of the scripts at /usr/share/john"
-            "ruby: for executing some of the scripts at /usr/share/john"
-            "python: for executing some of the scripts at /usr/share/john"
-            "nss: to use mozilla2john"
-            "libgsf: to use office2john"
-            "libxml2: to use office2john")
+optdepends=('perl: for executing some of the scripts at /usr/share/john'
+            'ruby: for executing some of the scripts at /usr/share/john'
+            'python: for executing some of the scripts at /usr/share/john'
+            'nss: to use mozilla2john'
+            'libgsf: to use office2john'
+            'libxml2: to use office2john')
 backup=('etc/john/john.conf')
 install=john.install
-source=(params.h.patch)
+source=('params.h.patch'
+		'git://github.com/magnumripper/JohnTheRipper.git#branch=unstable-jumbo')
 options=('!strip')
-md5sums=('f69ed632eba8fb9e45847a4b4a323787')
+md5sums=('f69ed632eba8fb9e45847a4b4a323787' 'SKIP')
 
-_gitroot="https://github.com/magnumripper/JohnTheRipper.git"
 _gitname="JohnTheRipper"
 
+pkgver() {
+	  cd "$srcdir/$_gitname"
+	  git describe --tags | sed 's/-/./g' | sed 's/magnum.jumbo.//'
+}
+
 build() {
-	cd "$srcdir"
-	msg "Connecting to GIT server...."
-
-	if [[ -d "$_gitname" ]]; then
-		cd "$_gitname" && git pull origin
-		msg "The local files are updated."
-	else
-		git clone "$_gitroot" "$_gitname"
-	fi
-
-	msg "GIT checkout done or server timeout"
-	msg "Starting build..."
-
-	rm -rf "$srcdir/$_gitname-build"
-	git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-	cd "$srcdir/$_gitname-build/src"
+	cd "$_gitname/src"
 
 	patch -p0 < ${srcdir}/params.h.patch
 	if [ "$CARCH" == "x86_64" ]; then
@@ -72,23 +62,23 @@ build() {
 
 package() {
 	# config file
-	sed -i 's|$JOHN/john.local.conf|/etc/john/john.local.conf|g' ${srcdir}/$_gitname-build/run/john.conf
-	sed -i 's|$JOHN|/usr/share/john|g' ${srcdir}/$_gitname-build/run/john.conf
-	install -Dm644 ${srcdir}/$_gitname-build/run/john.conf ${pkgdir}/etc/john/john.conf
+	sed -i 's|$JOHN/john.local.conf|/etc/john/john.local.conf|g' ${srcdir}/$_gitname/run/john.conf
+	sed -i 's|$JOHN|/usr/share/john|g' ${srcdir}/$_gitname/run/john.conf
+	install -Dm644 ${srcdir}/$_gitname/run/john.conf ${pkgdir}/etc/john/john.conf
 
 	# docs
 	install -d ${pkgdir}/usr/share/doc/john
-	install -m644 ${srcdir}/$_gitname-build/doc/* ${pkgdir}/usr/share/doc/john/
-	install -Dm644 ${srcdir}/$_gitname-build/doc/LICENSE ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
+	install -m644 ${srcdir}/$_gitname/doc/* ${pkgdir}/usr/share/doc/john/
+	install -Dm644 ${srcdir}/$_gitname/doc/LICENSE ${pkgdir}/usr/share/licenses/$pkgname/LICENSE
 
 	# install password list, charset files
 	install -d ${pkgdir}/usr/share/john/
-	install -m644 ${srcdir}/$_gitname-build/run/password.lst ${pkgdir}/usr/share/john/
-	install -m644 ${srcdir}/$_gitname-build/run/dictionary.rfc2865 ${pkgdir}/usr/share/john/
-	install -m644 ${srcdir}/$_gitname-build/run/stats ${pkgdir}/usr/share/john/
-	install -m644 ${srcdir}/$_gitname-build/run/{all,alnum,alpha,digits,lanman}.chr \
+	install -m644 ${srcdir}/$_gitname/run/password.lst ${pkgdir}/usr/share/john/
+	install -m644 ${srcdir}/$_gitname/run/dictionary.rfc2865 ${pkgdir}/usr/share/john/
+	install -m644 ${srcdir}/$_gitname/run/stats ${pkgdir}/usr/share/john/
+	install -m644 ${srcdir}/$_gitname/run/{all,alnum,alpha,digits,lanman}.chr \
 			${pkgdir}/usr/share/john/
-	install -m644 ${srcdir}/$_gitname-build/run/{dumb16,dumb32,dynamic}.conf \
+	install -m644 ${srcdir}/$_gitname/run/{dumb16,dumb32,dynamic}.conf \
 			${pkgdir}/usr/share/john/
 
 	# install scripts
@@ -110,7 +100,7 @@ package() {
 		netntlm.pl \
 		netscreen.py \
 		odf2john.py \
-    office2john.py \
+		office2john.py \
 		pass_gen.pl \
 		pdf2john.py \
 		radius2john.pl \
@@ -122,25 +112,25 @@ package() {
 		strip2john.py \
 		sxc2john.py)
 	for john_script in "${john_scripts[@]}"; do
-		install -m755 ${srcdir}/$_gitname-build/run/${john_script} \
+		install -m755 ${srcdir}/$_gitname/run/${john_script} \
 			${pkgdir}/usr/share/john
 	done
 
-	install -m644 ${srcdir}/$_gitname-build/run/dynamic.conf ${pkgdir}/etc/john/
-	install -Dm644 ${srcdir}/$_gitname-build/run/john.bash_completion \
+	install -m644 ${srcdir}/$_gitname/run/dynamic.conf ${pkgdir}/etc/john/
+	install -Dm644 ${srcdir}/$_gitname/run/john.bash_completion \
 		${pkgdir}/etc/bash_completion.d/john
-	install -Dm644 ${srcdir}/$_gitname-build/run/john.zsh_completion \
+	install -Dm644 ${srcdir}/$_gitname/run/john.zsh_completion \
 		${pkgdir}/etc/zsh/john
 
 	# install binaries
-	install -Dm755 ${srcdir}/$_gitname-build/run/john ${pkgdir}/usr/bin/john
-	install -Dm755 ${srcdir}/$_gitname-build/run/calc_stat ${pkgdir}/usr/bin/calc_stat
-	install -Dm755 ${srcdir}/$_gitname-build/run/genmkvpwd ${pkgdir}/usr/bin/genmkvpwd
-	install -Dm755 ${srcdir}/$_gitname-build/run/mkvcalcproba ${pkgdir}/usr/bin/mkvcalcproba
-	install -Dm755 ${srcdir}/$_gitname-build/run/relbench ${pkgdir}/usr/bin/relbench
-	install -Dm755 ${srcdir}/$_gitname-build/run/tgtsnarf ${pkgdir}/usr/bin/tgtsnarf
-	install -Dm755 ${srcdir}/$_gitname-build/run/mailer ${pkgdir}/usr/bin/john-mailer
-	install -Dm755 ${srcdir}/$_gitname-build/run/raw2dyna ${pkgdir}/usr/bin/raw2dyna
+	install -Dm755 ${srcdir}/$_gitname/run/john ${pkgdir}/usr/bin/john
+	install -Dm755 ${srcdir}/$_gitname/run/calc_stat ${pkgdir}/usr/bin/calc_stat
+	install -Dm755 ${srcdir}/$_gitname/run/genmkvpwd ${pkgdir}/usr/bin/genmkvpwd
+	install -Dm755 ${srcdir}/$_gitname/run/mkvcalcproba ${pkgdir}/usr/bin/mkvcalcproba
+	install -Dm755 ${srcdir}/$_gitname/run/relbench ${pkgdir}/usr/bin/relbench
+	install -Dm755 ${srcdir}/$_gitname/run/tgtsnarf ${pkgdir}/usr/bin/tgtsnarf
+	install -Dm755 ${srcdir}/$_gitname/run/mailer ${pkgdir}/usr/bin/john-mailer
+	install -Dm755 ${srcdir}/$_gitname/run/raw2dyna ${pkgdir}/usr/bin/raw2dyna
 
 	# create links
 	cd ${pkgdir}/usr/bin

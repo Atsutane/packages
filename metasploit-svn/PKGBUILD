@@ -1,12 +1,9 @@
-# Maintainer: Daniel Micay <danielmicay@gmail.com>
+# Maintainer: Thorsten Töpper <atsutane-aur@freethoughts.de>
+# Contributor: Daniel Micay <danielmicay@gmail.com>
 # Contributor: ryooichi <ryooichi+arch AT gmail DOT com>
 
-# change this to true if you want to use msfupdate
-# this will include the svn repository in the package
-_msfupdate=false
-
 pkgname=metasploit-svn
-pkgver=16007
+pkgver=16518MP
 pkgrel=1
 pkgdesc="The Metasploit Framework is a development platform for creating security tools and exploits."
 arch=('any')
@@ -23,32 +20,21 @@ if $_msfupdate; then
   optdepends+=('subversion: msfupdate')
 fi
 
-_svntrunk=https://www.metasploit.com/svn/framework3/trunk
+source=('svn+https://www.metasploit.com/svn/framework3/trunk')
+md5sums=('SKIP')
+
 _svnmod=metasploit
 
-build() {
-  cd "$srcdir"
-  msg "Connecting to SVN server...."
-
-  if [[ -d $_svnmod/.svn ]]; then
-    cd $_svnmod && svn up -r $pkgver
-  else
-    svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
-  fi
-
-  msg "SVN checkout done or server timeout"  
+pkgver() {
+  cd "$SRCDEST/trunk"
+  svnversion
 }
 
 package() {
   cd "$pkgdir"
   mkdir -p usr/bin opt
-
-  if $_msfupdate; then
-    cp -R "$srcdir/$_svnmod" opt/$_svnmod
-  else
-    svn export $srcdir/$_svnmod opt/$_svnmod > /dev/null
-    rm opt/$_svnmod/msfupdate
-  fi
+  mv "$srcdir/trunk" opt/$_svnmod
+  rm opt/$_svnmod/msfupdate
 
   install -Dm644 opt/$_svnmod/COPYING usr/share/licenses/$pkgname/COPYING
 
