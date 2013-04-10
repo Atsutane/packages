@@ -22,14 +22,14 @@ build_pkg() {
 	cd $pkgdir
 
 	# get rid of debug builds
-	rm -rf *.pkg.tar.xz ./src/*-build ./pkg > /dev/null 2>&1
+	rm -rf *.pkg.tar.xz ./src/ ./pkg > /dev/null 2>&1
 
 	# build the package
 	makepkg -f
 	mv *.pkg.tar.xz "$TARGET_REPO_DIR"
 
 	# get rid of unnecessary files
-	rm -rf ./src/*-build ./pkg
+	rm -rf ./src/ ./pkg
 
 	cd "$origin"
 }
