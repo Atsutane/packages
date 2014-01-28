@@ -25,7 +25,7 @@ build_pkg() {
 	rm -rf *.pkg.tar.xz ./src/ ./pkg > /dev/null 2>&1
 
 	# build the package
-	makepkg -f
+	makepkg -sf
 	mv *.pkg.tar.xz "$TARGET_REPO_DIR"
 
 	# get rid of unnecessary files
